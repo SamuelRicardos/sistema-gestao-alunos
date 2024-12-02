@@ -1,0 +1,134 @@
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+		integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<!------ Include the above in your HEAD tag ---------->
+	<title>Inserir Aluno</title>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="collapse navbar-collapse" id="textoNavbar">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/dashboard}"><i class="fa fa-home"></i>Home<span
+								class="sr-only">(Página atual)</span></a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown"><i
+								class="fa fa-user"></i>Aluno</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" th:href="@{/aluno/editar}"> <i
+									class="fa fa-pencil-square"></i>Editar</a>
+							<a class="dropdown-item" th:href="@{/aluno/deletar}"> <i class="fa fa-trash"></i>Excluir</a>
+							<a class="dropdown-item" th:href="@{/aluno/inserir}"> <i
+									class="fa fa-graduation-cap"></i>Inserir</a>
+							<a class="dropdown-item" th:href="@{/aluno/listar}"> <i class="fa fa-search"></i>Listar</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown"><i
+								class="fa fa-user"></i>Professor</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" th:href="@{/professor/editar}"> <i
+									class="fa fa-pencil-square"></i>Editar</a>
+							<a class="dropdown-item" th:href="@{/professor/deletar}"> <i
+									class="fa fa-trash"></i>Excluir</a>
+							<a class="dropdown-item" th:href="@{/professor/inserir}"> <i
+									class="fa fa-graduation-cap"></i>Inserir</a>
+							<a class="dropdown-item" th:href="@{/professor/listar}"> <i
+									class="fa fa-search"></i>Listar</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown"><i
+								class="fa fa-user"></i>Turma</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" th:href="@{/turma/listar}"> <i
+									class="fa fa-pencil-square"></i>Editar</a>
+							<a class="dropdown-item" th:href="@{/turma/listar}"> <i class="fa fa-trash"></i>Excluir</a>
+							<a class="dropdown-item" th:href="@{/turma/inserir}"> <i
+									class="fa fa-graduation-cap"></i>Inserir</a>
+							<a class="dropdown-item" th:href="@{/turma/inserirAlunosTurma}"><i
+									class="fa fa-graduation-cap"></i>Compor Turma</a>
+								<a class="dropdown-item" th:href="@{/turma/listar}"> <i
+										class="fa fa-search"></i>Listar</a>
+						</div>
+					</li>
+				</ul>
+				<span class="navbar-text">
+					<div class="collapse navbar-collapse" id="textoNavbar">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item">
+								<a class="nav-link" href="#">Sair</a>
+							</li>
+						</ul>
+					</div>
+				</span>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<h3 class="text-center text-info">Listar turmas</h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="text-center" scope="col">Código Turma</th>
+					<th class="text-center" scope="col">Nome Disciplina</th>
+					<th class="text-center" scope="col">Professor</th>
+					<th class="text-center" scope="col">Curso</th>
+					<th class="text-center" scope="col">Período</th>
+					<th class="text-center" scope="col">Turno</th>
+					<th class="text-center" scope="col">Alunos</th>
+					<th class="text-center" scope="col">Alterar</th>
+					<th class="text-center" scope="col">Excluir</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr scope="row" th:each="turma : ${turmas}">
+					<td class="text-center" th:text="${turma.codTurma}"></td>
+					<td class="text-center" th:text="${turma.disciplina}"></td>
+					<td class="text-center" th:text="${turma.professor.nome}"></td>
+					<td class="text-center" th:text="${turma.curso}"></td>
+					<td class="text-center" th:text="${turma.periodo}"></td>
+					<td class="text-center" th:text="${turma.turno}">
+						<span th:case="'M'">Matutino</span>
+						<span th:case="'N'">Noturno</span>
+					</td>
+					<td class="text-center">
+						<a class="btn btn-success" th:href="@{turma/listarAlunos/{id}(id=${turma.id})}">
+							<i class="fa fa-graduation-cap"></i>
+						</a>
+					</td>
+					<td class="text-center">
+						<a class="btn btn-secondary" th:href="@{/turma/editar/{id}(id=${turma.id})}">
+							<i class="fa fa-pencil-square"></i>
+						</a>
+					</td>
+					<td class="text-center">
+						<a class="btn btn-danger" th:href="@{/turma/excluir/{id}(id=${turma.id})}">
+							<i class="fa fa-trash"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<footer class="bg-primary text-center text-lg-start">
+		<!-- Grid container -->
+		<!-- Copyright -->
+		<div class="text-center p-3" style="color: #fff; font-weight: bold;">
+			© 2024 Copyright: SENAC
+
+		</div>
+	</footer>
+</body>
+
+</html>
